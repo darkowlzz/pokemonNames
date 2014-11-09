@@ -15,16 +15,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import os
 from random import randrange
 
-DEFAULT_LIST = 'names.list'
+this_dir, this_filename = os.path.split(__file__)
+DATA_PATH = os.path.join(this_dir, 'names.list')
 
 
 class PokemonNames():
+    '''Generate Pokemon names'''
 
     def __init__(self):
         '''Opens the name list and stores the names in a dictionary'''
-        fd = open(DEFAULT_LIST, 'r+')
+        fd = open(DATA_PATH, 'r+')
         lines = fd.readlines()
         self.totalCount = len(lines) + 1
         for i, val in enumerate(lines):
