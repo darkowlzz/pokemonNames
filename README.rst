@@ -1,5 +1,5 @@
 ===============================
-pokemon-names
+pokemonNames
 ===============================
 
 .. image:: https://badge.fury.io/py/pokemonNames.png

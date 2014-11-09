@@ -17,12 +17,14 @@
 
 from random import randrange
 
+DEFAULT_LIST = 'names.list'
+
 
 class PokemonNames():
 
     def __init__(self):
         '''Opens the name list and stores the names in a dictionary'''
-        fd = open('pokemonNames/names.list', 'r+')
+        fd = open(DEFAULT_LIST, 'r+')
         lines = fd.readlines()
         self.totalCount = len(lines) + 1
         for i, val in enumerate(lines):
