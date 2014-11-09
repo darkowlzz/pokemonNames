@@ -8,9 +8,6 @@ pokemon-names
 .. image:: https://travis-ci.org/darkowlzz/pokemonNames.png?branch=master
         :target: https://travis-ci.org/darkowlzz/pokemonNames
 
-.. image:: https://pypip.in/d/pokemonNames/badge.png
-        :target: https://pypi.python.org/pypi/pokemonNames
-
 
 Generate random pokemon names.
 
