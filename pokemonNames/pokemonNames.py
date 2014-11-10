@@ -16,7 +16,10 @@
 
 
 import os
+
+from sys import exc_info
 from random import randrange
+from numberify.numberify import Numberify
 
 this_dir, this_filename = os.path.split(__file__)
 DATA_PATH = os.path.join(this_dir, 'names.list')
@@ -25,20 +28,27 @@ DATA_PATH = os.path.join(this_dir, 'names.list')
 class PokemonNames():
     '''Generate Pokemon names'''
 
-    def __init__(self):
+    def __init__(self, default=True):
         '''Opens the name list and stores the names in a dictionary'''
-        fd = open(DATA_PATH, 'r+')
-        lines = fd.readlines()
-        self.totalCount = len(lines) + 1
-        for i, val in enumerate(lines):
-            lines[i] = val.split()
         self.nameDict = {}
+        self.totalCount = 0
+        if default:
+            self.nameDict = self.get_from_indexedFile(DATA_PATH)
+
+    def get_from_indexedFile(self, filename):
+        fd = open(filename, 'r+')
+        lines = fd.readlines()
+        self.totalCount = len(lines)
+        for index, val in enumerate(lines):
+            lines[index] = val.split()
+        nameDict = {}
         for line in lines:
-            self.nameDict[int(line[0])] = line[1]
+            nameDict[int(line[0])] = line[1]
+        return nameDict
 
     def get_random_name(self):
         '''Return a random name'''
-        key = randrange(1, self.totalCount)
+        key = randrange(1, self.totalCount + 1)
         return self.nameDict[key]
 
     def get_name(self, key):
@@ -46,4 +56,30 @@ class PokemonNames():
         Argument:
         key -- Pokemon number id (int)
         '''
-        return self.nameDict[key]
+        try:
+            return self.nameDict[key]
+        except IndexError as e:
+            print 'IndexError {0}: {1}'.format(e.errno, e.strerror)
+
+    def append_to_list(self, source, start=None, hasIndex=False):
+        '''Appends new list to self.nameDict
+        Argument:
+        source -- source of new name list (filename or list)
+        start  -- starting index of new list
+        hasIndex -- the file is already indexed
+        '''
+        nfy = Numberify()
+        try:
+            if start is None:
+                if type(source) is str:
+                    if hasIndex is True:
+                        newList = self.get_from_indexedFile(source)
+                else:
+                    newList = nfy.numberify_data(source,
+                                                 len(self.nameDict) + 1)
+            else:
+                newList = nfy.numberify_data(source, start)
+            self.nameDict = dict(self.nameDict.items() + newList.items())
+            self.totalCount = len(self.nameDict)
+        except:
+            print 'Unknown error:', exc_info()[0]
