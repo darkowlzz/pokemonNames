@@ -78,7 +78,7 @@ Import indexed file as:
 .. code-block:: pycon
 
     ...
-    >> p.append_to_list('newNames', hasIndex=True)
+    >> p.append_to_list('indexedFileName', hasIndex=True)
     >> p.get_name(1000)
     'Flanyx'
     >> p.get_name(1005)
