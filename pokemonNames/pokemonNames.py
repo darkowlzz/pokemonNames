@@ -19,7 +19,12 @@ import os
 
 from sys import exc_info
 from random import randrange
-from numberify.numberify import Numberify
+
+# Since it fails due to recursive imports
+try:
+    from numberify.numberify import Numberify
+except ImportError:
+    from numberify import Numberify
 
 this_dir, this_filename = os.path.split(__file__)
 DATA_PATH = os.path.join(this_dir, 'names.list')
