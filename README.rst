@@ -84,6 +84,16 @@ Import indexed file as:
     >> p.get_name(1005)
     'Catmeow'
     
+Don't want pokemon names?
+
+.. code-block:: pycon
+
+    ...
+    >> noPokemon = PokemonNames(False)
+    # Creates an empty list
+
+This could be used to store and refer any name from files or from variables.
+
 Docs
 ----
 
